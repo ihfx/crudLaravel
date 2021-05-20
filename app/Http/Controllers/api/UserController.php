@@ -16,19 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Retorna os registros da tabela users
-        //return new UserResource(User::all());
-        return UserResource::collection(User::all());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        // Retorna os registros da tabela users em formato json
+        $users = User::all();
+        return response()->json(UserResource::collection($users));
     }
 
     /**
@@ -39,6 +29,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Cria o usuario no banco
         User::create($request->all());
     }
 
@@ -50,18 +41,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return new UserResource(User::findOrFail($id));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        // Retorna o usuario solicitado pelo id em formato json
+        return response()->json(new UserResource(User::findOrFail($id)));
     }
 
     /**
@@ -73,6 +54,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Edita o usuario no banco identificando pelo id
         $user = User::findOrFail($id);
         $user->update($request->all());
     }
@@ -85,6 +67,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        // Deleta o usuario no banco identificando pelo id
         $user = User::findOrFail($id);
         $user->delete();
     }

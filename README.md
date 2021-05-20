@@ -1,10 +1,9 @@
-### Teste para a vaga de desenvolvedor WEB - API
+### Teste para a vaga de desenvolvedor WEB
 
-Diferenciais (item não obrigatório)\
-Criação de API com endpoint para:\
-[] Lista de produtos;\
-[] Inclusão de produto;\
-[] Alteração de produto.
+Criar uma solução utilizando Laravel que contenha:\
+[] Uma tela de Login;\
+[] Cadastro de Usuário;\
+[] Cadastro de Produtos (CRUD Completo);
 
 O que esperamos:\
 [] Utilização padrão do Laravel para rotas, models e middleware;\
@@ -12,7 +11,10 @@ O que esperamos:\
 [] O layout é por sua escolha e preferência;\
 [] Utilizar o repositório GitHub para registrar o avanço dos seus resultados.
 
-
+Criação de API com endpoint para:\
+[] Lista de produtos;\
+[] Inclusão de produto;\
+[] Alteração de produto.
 
 
 <!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>

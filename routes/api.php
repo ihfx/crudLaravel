@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,12 +17,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+// Rotas publicas
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// Rotas privadas
+Route::group(['middleware' => ['auth:sanctum']], function(){
+  // Rota api/products
+  Route::get('/products', [ProductController::class, 'index']);
+  Route::get('/products/{id}', [ProductController::class, 'show']);
+  Route::post('/products', [ProductController::class, 'store']);
+  Route::put('/products/{id}', [ProductController::class, 'update']);
+  Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+
+  // Rota api/users
+  Route::get('/users', [UserController::class, 'index']);
+  Route::get('/users/{id}', [UserController::class, 'show']);
+  Route::post('/users', [UserController::class, 'store']);
+  Route::put('/users/{id}', [UserController::class, 'update']);
+  Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+  // Rota de logout
+  Route::post('/logout', [AuthController::class, 'logout']);
+});
 
 
-Route::apiResource('products', 'App\Http\Controllers\api\ProductController');
-
-
-Route::apiResource('users', 'App\Http\Controllers\api\UserController');
