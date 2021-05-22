@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\api;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    // Array necessario para compor os campos desta tabela para insercao no banco de dados
+    // Variável necessaria para informar os campos que podem sofrer alteração
     protected $fillable = [
         'description',
         'price'

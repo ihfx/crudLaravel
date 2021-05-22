@@ -14,7 +14,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        // Retorna apenas os campos pre definidos e caso não exista os campos subtendesse que não possui registros par retornar.
+        // Retorna apenas os campos pre definidos e caso não exista os campos retona array vazio
         try {
             $result = [
                 'id' => $this->id,

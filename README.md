@@ -1,20 +1,20 @@
 ### Teste para a vaga de desenvolvedor WEB
 
 Criar uma solução utilizando Laravel que contenha:\
-[] Uma tela de Login;\
-[] Cadastro de Usuário;\
-[] Cadastro de Produtos (CRUD Completo);
+[x] Uma tela de Login;\
+[x] Cadastro de Usuário;\
+[x] Cadastro de Produtos (CRUD Completo);
 
 O que esperamos:\
-[] Utilização padrão do Laravel para rotas, models e middleware;\
-[] Fique à vontade para inserir comentários em seu código;\
-[] O layout é por sua escolha e preferência;\
-[] Utilizar o repositório GitHub para registrar o avanço dos seus resultados.
+[x] Utilização padrão do Laravel para rotas, models e middleware;\
+[x] Fique à vontade para inserir comentários em seu código;\
+[x] O layout é por sua escolha e preferência;\
+[x] Utilizar o repositório GitHub para registrar o avanço dos seus resultados.
 
 Criação de API com endpoint para:\
-[] Lista de produtos;\
-[] Inclusão de produto;\
-[] Alteração de produto.
+[x] Lista de produtos;\
+[x] Inclusão de produto;\
+[x] Alteração de produto.
 
 
 <!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>

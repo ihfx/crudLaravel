@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Http\Resources\ProductResource;
+use App\Http\Requests\ProductRequest;
+use App\Models\api\Product;
+use App\Http\Resources\api\ProductResource;
 
 class ProductController extends Controller
 {
@@ -16,19 +16,23 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // Retorna os registros da tabela products
-        //return new ProductResource(Products::all());
-        return ProductResource::collection(Product::all());
-    }
+        try {
+            // Busca os produtos na tabela pelo model product com ordenação decrescente pelo id
+            $produtos = Product::all()->sortByDesc('id');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+            // Faz uma coleção dos produtos obtidos utilizando resources
+            $produtosResource = ProductResource::collection($produtos);
+
+            // Retorna a coleção de produtos em formato json
+            return response()->json($produtosResource);
+
+        } catch (\Exception $e) {
+            // Mensagem de retorno
+            $msg = ['msg' => $e->getMessage()];
+
+            // Retorna a mensagem em formato json
+            return response()->json($msg);
+        }
     }
 
     /**
@@ -37,9 +41,37 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        Product::create($request->all());
+        try {
+            // A requisicao foi customizada para validar com campo e proteger o sistema
+            // Cria o produto na tabela pelo model product com as informacoes da requisicao
+            $resp = Product::create([
+                'description' => $request->description,
+                'price' => $request->price
+            ]);
+
+            $msg = [];
+            // Veirifica se a criacao do produto deu certo
+            if($resp){
+                // Mensagem de retorno
+                $msg = ['msg' => 'Produto Criado com sucesso!'];
+            }else{
+                // Mensagem de retorno
+                $msg = ['msg' => 'Erro ao criar o produto!'];
+            }
+
+            // Retorna a mensagem em formato json
+            return response()->json($msg);
+
+        } catch (\Exception $e) {
+            // Mensagem de retorno
+            $msg = ['msg' => $e->getMessage()];
+
+            // Retorna a mensagem em formato json
+            return response()->json($msg);
+        }
+
     }
 
     /**
@@ -50,18 +82,24 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return new ProductResource(Product::findOrFail($id)); 
-    }
+        try {
+            // Busca o produto na tabela pelo model product identificando pelo id
+            $produto = Product::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+            // Instancia ProductResources
+            $produtosResource = new ProductResource($produto);
+
+            // Retorna o produto em formato json
+            return response()->json($produtosResource); 
+
+        } catch (\Exception $e) {
+            // Mensagem de retorno
+            $msg = ['msg' => $e->getMessage()];
+
+            // Retorna a mensagem em formato json
+            return response()->json($msg);
+        }
+
     }
 
     /**
@@ -71,10 +109,32 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        $product = Product::findOrFail($id);
-        $product->update($request->all());
+        try {
+            // Busca o produto na tabela pelo model product pelo id 
+            $produto = Product::where(['id'=>$id]);
+
+            // Realiza o update no registro com as informaçoes recebidas da requisicao
+            // A requisicao foi customizada para validar com campo e proteger o sistema
+            $produto->update([
+                'description' => $request->description,
+                'price' => $request->price
+            ]);
+
+            // Mensagem de retorno
+            $msg = ['msg' => 'Produto editado com sucesso!'];
+
+            // Retorna a mensagem em formato json
+            return response()->json($msg);
+
+        } catch (\Exception $e) {
+            // Mensagem de retorno
+            $msg = ['msg' => $e->getMessage()];
+
+            // Retorna a mensagem em formato json
+            return response()->json($msg);
+        }
     }
 
     /**
@@ -85,7 +145,24 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
+        try {
+            // Busca o produto na tabela pelo model product pelo id 
+            $produto = Product::where(['id'=>$id]);
+            // Deleta o produto
+            $produto->delete();
+
+            // Mensagem de retorno
+            $msg = ['msg' => 'Produto deletado com sucesso!'];
+
+            // Retorna a mensagem em formato json
+            return response()->json($msg);
+
+        } catch (\Exception $e) {
+            // Mensagem de retorno
+            $msg = ['msg' => $e->getMessage()];
+
+            // Retorna a mensagem em formato json
+            return response()->json($msg);
+        }
     }
 }
